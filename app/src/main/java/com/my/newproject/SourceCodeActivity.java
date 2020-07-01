@@ -23,9 +23,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.widget.LinearLayout;
+import java.util.HashMap;
+import java.util.ArrayList;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 
 public class SourceCodeActivity extends AppCompatActivity {
@@ -34,10 +39,20 @@ public class SourceCodeActivity extends AppCompatActivity {
 	private Toolbar _toolbar;
 	private FloatingActionButton _fab;
 	private DrawerLayout _drawer;
+	private double length = 0;
+	private String str = "";
+	private HashMap<String, Object> h = new HashMap<>();
+	
+	private ArrayList<String> vars = new ArrayList<>();
 	
 	private Button button1;
-	private TextView textview1;
+	private TextView t2;
+	private LinearLayout linear1;
 	private EditText edittext1;
+	private HorizontalScrollView hscroll1;
+	private LinearLayout line2;
+	
+	private Intent intent = new Intent();
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
@@ -67,8 +82,11 @@ public class SourceCodeActivity extends AppCompatActivity {
 		LinearLayout _nav_view = (LinearLayout) findViewById(R.id._nav_view);
 		
 		button1 = (Button) findViewById(R.id.button1);
-		textview1 = (TextView) findViewById(R.id.textview1);
+		t2 = (TextView) findViewById(R.id.t2);
+		linear1 = (LinearLayout) findViewById(R.id.linear1);
 		edittext1 = (EditText) findViewById(R.id.edittext1);
+		hscroll1 = (HorizontalScrollView) findViewById(R.id.hscroll1);
+		line2 = (LinearLayout) findViewById(R.id.line2);
 		
 		button1.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -76,16 +94,24 @@ public class SourceCodeActivity extends AppCompatActivity {
 				
 			}
 		});
-		
-		edittext1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				
-			}
-		});
 	}
 	private void initializeLogic() {
-		SketchwareUtil.showMessage(getApplicationContext(), FileUtil.getExternalStorageDir());
+		SketchwareUtil.showMessage(getApplicationContext(), getIntent().getStringExtra("vars"));
+		setTitle(getIntent().getStringExtra("vars"));
+		t2.setText(getIntent().getStringExtra("vars"));
+		String s= getIntent().getStringExtra("vars");
+		for(int _repeat20 = 0; _repeat20 < (int)(getIntent().getStringExtra("vars").length()); _repeat20++) {
+			TextView tmp=new TextView(getApplicationContext());
+			tmp.setText("var"+" "+s);
+			tmp.setTextColor(Color.BLACK);
+			linear1.addView(tmp);
+		}
+		String []split_tmp=s.split(",");
+		int for_index;
+		int length_int=split_tmp.toString().length();
+		TextView tmp=new TextView(getApplicationContext());
+		tmp.setText(split_tmp[0]);
+		line2.addView(tmp);
 	}
 	
 	@Override

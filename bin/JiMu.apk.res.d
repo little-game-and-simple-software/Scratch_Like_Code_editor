@@ -635,9 +635,14 @@
 /storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/ggame.xml \
 /storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/function_list.xml \
 /storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/dialog_context.xml \
+/storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/customlanguage.xml \
+/storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/about.xml \
 /storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/ijj.xml \
 /storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/_drawer_source_code.xml \
 /storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/dialog_content1.xml \
+/storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/_drawer_customlanguage.xml \
+/storage/emulated/0/.sketchware/mysc/605/app/src/main/res/layout/item.xml \
+/storage/emulated/0/.sketchware/mysc/605/app/src/main/res/raw/bgm_true.mp3 \
 /storage/emulated/0/.sketchware/mysc/605/app/src/main/res/drawable-xhdpi/app_icon.png \
 /storage/emulated/0/.sketchware/mysc/605/app/src/main/res/drawable-xhdpi/default_image.png \
 /storage/emulated/0/.sketchware/mysc/605/app/src/main/res/drawable-xhdpi/ji1.png \

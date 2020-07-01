@@ -50,6 +50,10 @@ public class EditorActivity extends AppCompatActivity {
 	private FloatingActionButton _fab;
 	private double cli = 0;
 	private String edit_mode = "";
+	private double index = 0;
+	private String to_add_vars = "";
+	private String b = "";
+	private double tmp_index = 0;
 	
 	private ArrayList<String> test = new ArrayList<>();
 	private ArrayList<String> global_method_list = new ArrayList<>();
@@ -63,7 +67,7 @@ public class EditorActivity extends AppCompatActivity {
 	private TextView textview2;
 	private TextView textview4;
 	private Switch switch1;
-	private Button button3;
+	private Button see_source;
 	private Button button4;
 	private TextView main;
 	private TextView method_block;
@@ -80,6 +84,7 @@ public class EditorActivity extends AppCompatActivity {
 	private ObjectAnimator anim2 = new ObjectAnimator();
 	private AlertDialog.Builder dialog;
 	private AlertDialog.Builder dell_var;
+	private AlertDialog.Builder exitDialog;
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
@@ -124,7 +129,7 @@ public class EditorActivity extends AppCompatActivity {
 		textview2 = (TextView) findViewById(R.id.textview2);
 		textview4 = (TextView) findViewById(R.id.textview4);
 		switch1 = (Switch) findViewById(R.id.switch1);
-		button3 = (Button) findViewById(R.id.button3);
+		see_source = (Button) findViewById(R.id.see_source);
 		button4 = (Button) findViewById(R.id.button4);
 		main = (TextView) findViewById(R.id.main);
 		method_block = (TextView) findViewById(R.id.method_block);
@@ -137,6 +142,7 @@ public class EditorActivity extends AppCompatActivity {
 		line4 = (LinearLayout) findViewById(R.id.line4);
 		dialog = new AlertDialog.Builder(this);
 		dell_var = new AlertDialog.Builder(this);
+		exitDialog = new AlertDialog.Builder(this);
 		
 		linear2.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -167,11 +173,18 @@ public class EditorActivity extends AppCompatActivity {
 			}
 		});
 		
-		button3.setOnClickListener(new View.OnClickListener() {
+		see_source.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
-				intent.setClass(getApplicationContext(), SourceCodeActivity.class);
-				startActivity(intent);
+				if (test.size() == 0) {
+					SketchwareUtil.showMessage(getApplicationContext(), "出错了呀😅你没有添加变量");
+				}
+				else {
+					intent.setClass(getApplicationContext(), SourceCodeActivity.class);
+					intent.putExtra("vars",test.toString());
+					startActivity(intent);
+					SketchwareUtil.showMessage(getApplicationContext(), "一切顺利😊");
+				}
 			}
 		});
 		
@@ -230,66 +243,34 @@ public class EditorActivity extends AppCompatActivity {
 			public void onClick(View _view) {
 				final Button b=new Button(getApplicationContext());
 				b.setText("删除变量");
-				b.setOnClickListener(new OnClickListener()
-				{
-					@Override 
-					public void onClick(View v)
-					{
-						EditText var=new EditText(getApplicationContext());
-						var.setHint("删除变量 请输入变量名称");
-						var.setTextColor(Color.BLACK);
-						dell_var.setView(var);
-						dell_var.show();
-					}
-				});
 				//Bundle bundle=new Bundle();
 				dell_var.setTitle("删除变量");
 				dialog.setTitle("添加变量");
 				dialog.setMessage("请选择变量类型");
-				RadioGroup r=new RadioGroup(getApplicationContext());
+				//RadioGroup r=new RadioGroup(getApplicationContext());
 				final EditText t=new EditText(getApplicationContext());
 				t.setHint("请输入变量名称");
-				for(int _repeat40 = 0; _repeat40 < (int)(5); _repeat40++) {
-					if(_repeat40==1){RadioButton button_var=new RadioButton(getApplicationContext());
-						button_var.setText("Sring");
-						button_var.setTextColor(Color.BLACK);
-						r.addView(button_var);
-					}
-					if(_repeat40==2){RadioButton button_var=new RadioButton(getApplicationContext());
-						button_var.setText("int");
-						button_var.setTextColor(Color.BLACK);
-						r.addView(button_var);
-					}
-					if(_repeat40==3){RadioButton button_var=new RadioButton(getApplicationContext());
-						button_var.setText("float");
-						button_var.setTextColor(Color.BLACK);
-						r.addView(button_var);
-					}
-					if(_repeat40==4){RadioButton button_var=new RadioButton(getApplicationContext());
-						button_var.setText("boolean");
-						button_var.setTextColor(Color.BLACK);
-						r.addView(button_var);
-					}
-				}
-				r.addView(t);
 				t.setTextColor(Color.BLACK);
 				//t.setHintColor(Color.BLACK);
-				dialog.setView(r);
+				dialog.setView(t);
 				dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
 						String tmp=t.getText().toString();
-						Toast.makeText(getApplicationContext(),tmp,Toast.LENGTH_SHORT).show();
+						//Toast.makeText(getApplicationContext(),tmp,Toast.LENGTH_SHORT).show();
 						TextView ti=new TextView(getApplicationContext());
-						ti.setText(tmp);
+						ti.setText("变量"+tmp);
 						ti.setTextColor(Color.BLACK);
 						line4.addView(ti);
-						line4.addView(b);
-						SketchwareUtil.showMessage(getApplicationContext(), "ok");
+						//line4.addView(b);
 						TextView ti2=new TextView(getApplicationContext());
 						ti2.setText("设置变量"+tmp+"为"+"");
 						ti2.setTextColor(Color.BLACK);
 						line4.addView(ti2);
+						index++;
+						test.add(tmp);
+						to_add_vars = "tmp";
+						Toast.makeText(getApplicationContext(),test.toString(),Toast.LENGTH_SHORT).show();
 					}
 				});
 				dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -302,13 +283,16 @@ public class EditorActivity extends AppCompatActivity {
 				dell_var.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						
+						SketchwareUtil.showMessage(getApplicationContext(), "已取消");
 					}
 				});
 				dell_var.setPositiveButton("删除", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface _dialog, int _which) {
-						
+						Toast.makeText(getApplicationContext(),"删除",Toast.LENGTH_SHORT).show();
+						Toast.makeText(getApplicationContext(),test.toString(),Toast.LENGTH_SHORT).show();
+						int x=test.indexOf(t.getText().toString());
+						test.remove(x);
 					}
 				});
 			}
@@ -317,7 +301,29 @@ public class EditorActivity extends AppCompatActivity {
 		del_var.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View _view) {
+				dell_var.setTitle("输入一个变量名来删除");
+				final EditText pptv=new EditText(getApplicationContext());
+				pptv.setTextColor(Color.BLACK);
+				dell_var.setView(pptv);
+				dell_var.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface _dialog, int _which) {
+						String tmp =pptv.getText().toString();
+						tmp_index=test.indexOf(tmp);
+						if (tmp_index > -1) {
+							test.remove((int)(tmp_index));
+							line4.removeViewAt((int)(tmp_index));
+							setTitle(String.valueOf((long)(tmp_index - 1)));
+							line4.removeViewAt((int)tmp_index-1);
+						}
+						else {
+							SketchwareUtil.showMessage(getApplicationContext(), "不存在这个变量哦😜");
+						}
+						Toast.makeText(getApplicationContext(),test.indexOf(tmp)+"索引",Toast.LENGTH_SHORT).show();
+					}
+				});
 				
+				dell_var.create().show();
 			}
 		});
 		
@@ -424,18 +430,32 @@ public class EditorActivity extends AppCompatActivity {
 		}
 	}
 	
-	private void _j (final boolean _j) {
-		
+	@Override
+	public void onBackPressed() {
+		exitDialog.setTitle("确定退出?😉");
+		exitDialog.setMessage("真的要退出吗😮");
+		exitDialog.setPositiveButton("保存😏并退出", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface _dialog, int _which) {
+				SketchwareUtil.showMessage(getApplicationContext(), "保存好了👌");
+				finish();
+			}
+		});
+		exitDialog.setNegativeButton("不保存退出", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface _dialog, int _which) {
+				finish();
+			}
+		});
+		exitDialog.create().show();
 	}
-	
-	
 	private void _tw () {
-		
+		Toast.makeText(getApplicationContext(),"",Toast.LENGTH_SHORT).show();
 	}
 	
 	
-	private void _twa (final View _v) {
-		
+	private void _tip_String (final String _str_toTip) {
+		SketchwareUtil.showMessage(getApplicationContext(), _str_toTip);
 	}
 	
 	
