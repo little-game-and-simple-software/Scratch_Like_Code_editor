@@ -67,52 +67,60 @@
 				android:textSize="12sp"
 				android:textColor="#000000"/>
 		</LinearLayout>
-		<ImageView
-			android:id="@+id/function"
-			android:layout_width="100dp"
-			android:layout_height="30dp"
-			android:src="@drawable/ji1"
-			android:scaleType="centerCrop"/>
-		<Button
-			android:id="@+id/button3"
-			android:layout_width="wrap_content"
+		<LinearLayout
+			android:id="@+id/linear3"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:padding="8dp"
-			android:text="查看源码"
-			android:textSize="12sp"
-			android:textColor="#000000"/>
-		<TextView
-			android:id="@+id/main"
-			android:layout_width="100dp"
-			android:layout_height="100dp"
-			android:padding="8dp"
-			android:background="@drawable/ji1"
-			android:gravity="center_horizontal|center_vertical"
-			android:text="main"
-			android:textSize="30sp"
-			android:textColor="#000000"/>
-		<TextView
-			android:id="@+id/line"
-			android:layout_width="wrap_content"
+			android:orientation="horizontal">
+			<Button
+				android:id="@+id/see_source"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="查看源码"
+				android:textSize="12sp"
+				android:textColor="#000000"/>
+			<Button
+				android:id="@+id/button4"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="8dp"
+				android:text="保存"
+				android:textSize="12sp"
+				android:textColor="#000000"/>
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/linear2"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:padding="8dp"
-			android:textSize="12sp"
-			android:textColor="#000000"/>
-		<TextView
-			android:id="@+id/method_block"
-			android:layout_width="100dp"
-			android:layout_height="100dp"
-			android:padding="8dp"
-			android:background="@drawable/ji1"
-			android:gravity="center_horizontal|center_vertical"
-			android:text="方法1"
-			android:textSize="30sp"
-			android:textColor="#000000"/>
+			android:orientation="horizontal">
+			<TextView
+				android:id="@+id/main"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:padding="8dp"
+				android:background="@drawable/ji1"
+				android:gravity="center_horizontal|center_vertical"
+				android:text="main"
+				android:textSize="11sp"
+				android:textColor="#000000"/>
+			<TextView
+				android:id="@+id/method_block"
+				android:layout_width="100dp"
+				android:layout_height="200dp"
+				android:padding="8dp"
+				android:background="@drawable/ji1"
+				android:gravity="center_horizontal|center_vertical"
+				android:text="方法1"
+				android:textSize="10sp"
+				android:textColor="#000000"/>
+		</LinearLayout>
 		<LinearLayout
 			android:id="@+id/control_panel"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:padding="8dp"
+			android:layout_height="200dp"
 			android:orientation="horizontal">
 			<ScrollView
 				android:id="@+id/vscroll3"
@@ -145,6 +153,19 @@
 			</ScrollView>
 			<ScrollView
 				android:id="@+id/vs"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:padding="8dp">
+				<LinearLayout
+					android:id="@+id/line4"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:padding="8dp"
+					android:background="#81D4FA"
+					android:orientation="vertical"/>
+			</ScrollView>
+			<ScrollView
+				android:id="@+id/fo_select_list"
 				android:layout_width="wrap_content"
 				android:layout_height="match_parent"
 				android:padding="8dp"/>

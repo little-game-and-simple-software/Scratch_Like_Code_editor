@@ -18,14 +18,13 @@ import java.util.*;
 import java.text.*;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
-import android.widget.Button;
-import android.view.View;
+import android.widget.TextView;
 
 public class FunctionListActivity extends AppCompatActivity {
 	
 	
 	private LinearLayout linear1;
-	private Button button1;
+	private TextView textview1;
 	@Override
 	protected void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
@@ -37,28 +36,17 @@ public class FunctionListActivity extends AppCompatActivity {
 	private void initialize(Bundle _savedInstanceState) {
 		
 		linear1 = (LinearLayout) findViewById(R.id.linear1);
-		button1 = (Button) findViewById(R.id.button1);
-		
-		linear1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				
-			}
-		});
-		
-		button1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View _view) {
-				
-			}
-		});
+		textview1 = (TextView) findViewById(R.id.textview1);
 	}
 	private void initializeLogic() {
+		SketchwareUtil.showMessage(getApplicationContext(), "onCreate();");
 		RadioGroup r=new RadioGroup(getApplicationContext());
 		RadioButton button_var=new RadioButton(getApplicationContext());
-		button_var.setText("变量");
 		r.addView(button_var);
 		r.addView(button_var);
+		int to_add_id=r.getId();
+		View to_add=View.inflate(getApplicationContext(),to_add_id,null);
+		linear1.addView(to_add);
 	}
 	
 	@Override
